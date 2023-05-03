@@ -6,7 +6,7 @@ dotenv.config({ path: "backend/config/.env" });
 const userRouter = require("./routes/userRoute");
 const bodyParser = require("body-parser");
 
-app.use(bodyParser.json());
+app.use(express.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.use("/api/user", userRouter);

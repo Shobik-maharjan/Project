@@ -19,3 +19,29 @@ exports.createUser = async (req, res) => {
     });
   }
 };
+
+exports.login = async (req, res) => {
+  // try {
+  const { email, password } = req.body;
+  const user = await User.findOne({ email: email });
+  if (!user) {
+    return res.json({
+      success: false,
+      message: "Invalid credentials",
+    });
+  }
+  const isPasswordValid = await user.comparePassword(password);
+  if (!isPasswordValid) {
+    return res.json({
+      success: false,
+      message: "Invalid credentials",
+    });
+  }
+
+  return res.status(200).json({
+    success: true,
+    user,
+  });
+};
+
+// exports.logout = async (req, res) => {};
